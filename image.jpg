@@ -1,0 +1,18 @@
+Questa è l'immagine avatar da inserire nel repository GitHub con il nome esatto:
+
+image.jpg
+
+Struttura del repository:
+
+index.html
+image.jpg
+
+Nel file HTML usa:
+
+const photoPath = "image.jpg";
+
+oppure:
+
+<img src="./image.jpg" alt="Avatar di Eugenio Sicuro">
+
+Il nome deve rispettare esattamente maiuscole, minuscole ed estensione.
