@@ -1044,6 +1044,85 @@
       scroll-behavior: auto !important;
     }
   }
+  html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  min-width: 0;
+}
+
+img,
+canvas,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+.wrap,
+.hero-grid,
+.hero-copy,
+.visual,
+.story,
+.story-card,
+.thanks-grid,
+.thanks-card,
+.terminal,
+.loader-status,
+.signature {
+  width: 100%;
+  max-width: 100%;
+}
+
+p,
+h1,
+h2,
+h3,
+a,
+span,
+pre,
+.terminal-line,
+.final-code,
+.signature {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-break: normal;
+}
+
+.terminal,
+.terminal-line,
+.final-code,
+.signature {
+  overflow: hidden;
+}
+
+@media (max-width: 699px) {
+  .hero-title {
+    width: 100%;
+    max-width: 100%;
+    gap: 6px;
+  }
+
+  .hero-name {
+    min-width: 0;
+  }
+
+  .fireworks {
+    width: 58px;
+    height: 78px;
+    flex: 0 0 58px;
+    transform: scale(.62);
+    transform-origin: center left;
+  }
+}
 </style>
 </head>
 
@@ -1091,12 +1170,15 @@
           </div>
           <div class="terminal">
             <div class="terminal-top"><i></i><i></i><i></i></div>
-            <pre><span class="c">// Eugenio's final build</span>
-<span class="k">const</span> <span class="s">graduate</span> = {
-  name: <span class="s">"Eugenio Sicuro"</span>,
-  degree: <span class="s">"Ingegneria Informatica"</span>,
-  next: <span class="s">"build the future"</span>
-};</pre>
+    <pre><span class="c">// Eugenio's final build</span>
+    <span class="k">const</span> <span class="s">graduate</span> = {
+      name: <span class="s">"Eugenio Sicuro"</span>,
+      degree: <span class="s">"Ingegneria Informatica"</span>,
+      status: <span class="s">"stable enough"</span>,
+      coffee: <span class="s">"required"</span>,
+      bugs: <span class="s">"undocumented"</span>,
+      next: <span class="s">"build the future"</span>
+    };</pre>
           </div>
         </div>
       </div>
@@ -1105,7 +1187,7 @@
       <div class="wrap">
         <div class="label">01 — L'essenza</div>
         <h2>Ma quelle formule?<br>le userò mai?</h2>
-        <p class="muted">Non credo, ma le ho usate per trasformare un'idea in qualcosa che funziona davvero. Ogni esame, ogni
+        <p class="muted">Non credo, ma son servite per trasformare un'idea in qualcosa che funziona davvero. Ogni esame, ogni
           progetto e ogni errore ha aggiunto una nuova funzione alla mia crescita.</p>
         <div class="story">
           <article class="story-card">
