@@ -110,7 +110,7 @@
           <p class="muted">Ogni traguardo ha dietro persone, parole e piccoli gesti che meritano di essere
             ricordati.</p>
         </div>
-        <div class="thanks-grid">
+        <div class="thanks-grid" id="thanksGrid">
           <article class="thanks-card">
             <h3>Al sottoscritto 🧑‍💻</h3>
             <p>
@@ -175,6 +175,20 @@
     function setup() { width = canvas.width = innerWidth; height = canvas.height = innerHeight; columns = Math.floor(width / 17); drops = Array(columns).fill(1) }
     function draw() { ctx.fillStyle = "rgba(7,10,20,.09)"; ctx.fillRect(0, 0, width, height); ctx.fillStyle = "#70e5ff"; ctx.font = "12px monospace"; drops.forEach((y, i) => { ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * 17, y * 17); if (y * 17 > height && Math.random() > .975) drops[i] = 0; drops[i]++ }); if (!reduced) requestAnimationFrame(draw) }
     addEventListener("resize", setup); setup(); draw();
+    // Animazione card ringraziamenti quando entrano nel viewport
+  const thanksGrid = document.getElementById('thanksGrid');
+  if (thanksGrid) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          thanksGrid.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    obs.observe(thanksGrid);
+  }
   </script>
 </body>
 

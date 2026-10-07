@@ -1064,3 +1064,23 @@ footer {
   border-radius: 11px;
   white-space: nowrap;
 }
+
+/* Stato iniziale: card invisibili e leggermente spostate in basso */
+.thanks-card {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+
+/* Quando il contenitore ha la classe .in-view, le card entrano in scena */
+#thanksGrid.in-view .thanks-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ritardi scalati per effetto a cascata */
+#thanksGrid.in-view .thanks-card:nth-of-type(1) { transition-delay: .05s; }
+#thanksGrid.in-view .thanks-card:nth-of-type(2) { transition-delay: .12s; }
+#thanksGrid.in-view .thanks-card:nth-of-type(3) { transition-delay: .19s; }
+#thanksGrid.in-view .thanks-card:nth-of-type(4) { transition-delay: .26s; }
+#thanksGrid.in-view .thanks-card:nth-of-type(5) { transition-delay: .33s; }
