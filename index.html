@@ -151,8 +151,11 @@
           </article>
         </div>
         <div class="signature">
-          <div style='margin-top:30px;' class="signature-line"><strong>Con gratitudine,e qualche bug residuo,
-              Eugenio</strong></div>
+          <div style="margin-top: 30px;" class="signature-line">
+            <strong id="signatureTyping" class="signature-typing">
+              <span class="typing-text"></span><span class="typing-cursor" aria-hidden="true"></span>
+            </strong>
+          </div>
           <div style='margin-top:50px;' class="signature-sub"><span style='color: green'">[success]</span> commit accepted · heart_full = true;</div></div></div></section>
     <section class=" final">
               <section id="finalbuild">
@@ -307,6 +310,48 @@
 
       anxietyObserver.observe(anxietyTyping);
     }
+
+    // Effetto typing nella firma dei ringraziamenti
+const signatureTyping = document.getElementById("signatureTyping");
+const signatureText = signatureTyping?.querySelector(".typing-text");
+
+if (signatureTyping && signatureText) {
+  const fullSignatureText = "Con gratitudine, e qualche bug residuo, Eugenio";
+  let signatureIndex = 0;
+  let signatureStarted = false;
+
+  function startSignatureTyping() {
+    if (signatureStarted) return;
+
+    signatureStarted = true;
+
+    function writeNextSignatureCharacter() {
+      if (signatureIndex < fullSignatureText.length) {
+        signatureText.textContent += fullSignatureText.charAt(signatureIndex);
+        signatureIndex++;
+        setTimeout(writeNextSignatureCharacter, 42);
+      } else {
+        signatureTyping.classList.add("done");
+      }
+    }
+
+    writeNextSignatureCharacter();
+  }
+
+  const signatureObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        startSignatureTyping();
+        signatureObserver.disconnect();
+      }
+    },
+    {
+      threshold: 0.45
+    }
+  );
+
+  signatureObserver.observe(signatureTyping);
+}
   </script>
 </body>
 
