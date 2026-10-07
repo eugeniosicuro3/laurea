@@ -73,7 +73,7 @@
     }
 
     .wrap {
-      width: calc(100% - 32px);
+      width: calc(100% - 8px);
       margin: auto;
     }
 
