@@ -943,7 +943,7 @@
 
     @media (min-width: 700px) {
       .wrap {
-        width: min(1140px, calc(100% - 56px));
+        width: 100%;
       }
 
       .nav {
