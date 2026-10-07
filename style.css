@@ -1116,6 +1116,35 @@ footer {
 }
 
 /* Pseudo-elemento che mostra il testo man mano che viene “digitato” */
+/* --- Effetto digitazione su #finalCode --- */
+
+#finalCode {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  margin-top: 28px;
+  padding: 14px 16px;
+  border: 1px solid rgba(136, 255, 176, .35);
+  border-radius: 12px;
+  background: linear-gradient(135deg,
+      rgba(136, 255, 176, .1),
+      rgba(112, 229, 255, .05));
+  color: var(--green);
+  font: 12px monospace;
+  box-shadow: 0 0 25px rgba(136, 255, 176, .1);
+  overflow-wrap: anywhere;
+
+  /* Nascondiamo il testo, lo mostriamo via pseudo-elemento */
+  color: transparent !important;
+  border-right: 2px solid var(--green);
+  white-space: pre;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Testo “digitato” */
 #finalCode::after {
   content: attr(data-text);
   color: var(--green);
@@ -1124,7 +1153,7 @@ footer {
   padding: 14px 16px;
   overflow: hidden;
   border-right: 2px solid var(--green);
-  animation: blinkCaret .9s step-end infinite;
+  animation: blinkCaret .8s step-end infinite;
   white-space: pre;
 }
 

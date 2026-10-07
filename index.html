@@ -157,7 +157,7 @@
                   e nuovi problemi da risolvere. Qualche bug proverà sicuramente a mettersi in mezzo, ma ormai ho
                   imparato a fare debugging
                   anche della vita — o almeno a riavviare quando serve.</p>
-                <div class="final-code" id="finalCode" data-text='🚀 next_step = "build something amazing";'></div>
+                <div class="final-code" id="finalCode"></div>
               </div>
             </section>
     </section>
@@ -193,16 +193,16 @@
     obs.observe(thanksGrid);
   }
 
-   // --- Effetto digitazione su #finalCode ---
   const finalCode = document.getElementById('finalCode');
-  if (finalCode && finalCode.dataset.text) {
-    const fullText = finalCode.dataset.text;
+  const fullText = '🚀 next_step = "build something amazing";';
+
+  if (finalCode) {
     let i = 0;
 
     const type = () => {
       if (i++ < fullText.length) {
         finalCode.setAttribute('data-text', fullText.slice(0, i));
-        requestAnimationFrame(type);
+        setTimeout(type, 35);
       } else {
         finalCode.classList.add('done');
       }
@@ -211,7 +211,6 @@
     const obs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Avvia il typing quando l'elemento entra nel viewport
           type();
           obs.unobserve(entry.target);
         }
