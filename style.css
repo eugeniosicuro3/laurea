@@ -1059,28 +1059,6 @@ footer {
   white-space: nowrap;
 }
 
-/* --- Animazione card ringraziamenti allo scroll (con bounce) --- */
-
-/* Stato iniziale: card invisibili e spostate in basso */
-.thanks-card {
-  opacity: 0 !important;
-  transform: translateY(40px) scale(.98) !important;
-  transition: opacity .9s ease, transform .9s cubic-bezier(.34, 1.56, .64, 1) !important;
-}
-
-/* Quando il contenitore ha .in-view, le card appaiono con bounce */
-#thanksGrid.in-view .thanks-card {
-  opacity: 1 !important;
-  transform: translateY(0) scale(1) !important;
-}
-
-/* Ritardi scalati per effetto a cascata */
-#thanksGrid.in-view .thanks-card:nth-of-type(1) { transition-delay: 0.05s !important; }
-#thanksGrid.in-view .thanks-card:nth-of-type(2) { transition-delay: 0.10s !important; }
-#thanksGrid.in-view .thanks-card:nth-of-type(3) { transition-delay: 0.15s !important; }
-#thanksGrid.in-view .thanks-card:nth-of-type(4) { transition-delay: 0.22s !important; }
-#thanksGrid.in-view .thanks-card:nth-of-type(5) { transition-delay: 0.26s !important; }
-
 /* --- Effetto digitazione su .final-code --- */
 
 /* Effetto digitazione reale */
@@ -1172,5 +1150,43 @@ footer {
   50%,
   100% {
     opacity: 0;
+  }
+}
+
+/* --- Ringraziamenti: ogni card si anima quando entra nel viewport --- */
+
+/*
+ * Evita che lo spostamento temporaneo verso il basso
+ * faccia comparire una scrollbar verticale per un istante.
+ */
+.thanks-grid {
+  overflow: clip;
+  padding-bottom: 22px;
+}
+
+/* Stato iniziale di ciascuna card */
+.thanks-card.reveal-card {
+  opacity: 0;
+  transform: translateY(26px) scale(.98);
+  transition:
+    opacity .42s ease-out,
+    transform .48s cubic-bezier(.22, 1.45, .36, 1);
+  will-change: opacity, transform;
+}
+
+/* Stato visibile: attivato dal JavaScript su ogni singola card */
+.thanks-card.reveal-card.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Hover solo per dispositivi con un vero mouse */
+@media (hover: hover) and (pointer: fine) {
+  .thanks-card.reveal-card.is-visible:hover {
+    transform: translateY(-7px) scale(1.01);
+    border-color: rgba(112, 229, 255, .65);
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, .35),
+      0 0 40px rgba(112, 229, 255, .18);
   }
 }
