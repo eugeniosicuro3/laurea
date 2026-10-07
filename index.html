@@ -76,7 +76,12 @@
     <section id="storia">
       <div class="wrap">
         <div class="label">01 — L'essenza</div>
-        <h2>Il segreto?<br>Ansia e sangue freddo</h2>
+        <h2>
+          Il segreto?<br>
+          <span id="anxietyTyping" class="title-typing">
+            <span class="typing-text"></span><span class="typing-cursor" aria-hidden="true"></span>
+          </span>
+        </h2>
         <p class="muted"> Non è stato tutto lineare, e forse è stato proprio questo il bello:
           imparare a gestire l’imprevisto, rimettere ordine nel caos e andare avanti
           anche quando il piano aveva decisamente altre idee.</p>
@@ -235,6 +240,48 @@
 
     typingObserver.observe(finalCode);
   }
+
+  // Effetto digitazione: "Ansia e sangue freddo"
+const anxietyTyping = document.getElementById("anxietyTyping");
+const anxietyText = anxietyTyping?.querySelector(".typing-text");
+
+if (anxietyTyping && anxietyText) {
+  const fullAnxietyText = "Ansia e sangue freddo";
+  let anxietyIndex = 0;
+  let anxietyStarted = false;
+
+  function startAnxietyTyping() {
+    if (anxietyStarted) return;
+
+    anxietyStarted = true;
+
+    function writeNextAnxietyCharacter() {
+      if (anxietyIndex < fullAnxietyText.length) {
+        anxietyText.textContent += fullAnxietyText.charAt(anxietyIndex);
+        anxietyIndex++;
+        setTimeout(writeNextAnxietyCharacter, 65);
+      } else {
+        anxietyTyping.classList.add("done");
+      }
+    }
+
+    writeNextAnxietyCharacter();
+  }
+
+  const anxietyObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        startAnxietyTyping();
+        anxietyObserver.disconnect();
+      }
+    },
+    {
+      threshold: 0.35
+    }
+  );
+
+  anxietyObserver.observe(anxietyTyping);
+}
   </script>
 </body>
 

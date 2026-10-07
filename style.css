@@ -1141,3 +1141,42 @@ footer {
     opacity: 0;
   }
 }
+
+/* Digitazione titolo: "Ansia e sangue freddo" */
+.title-typing {
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
+.title-typing .typing-text {
+  color: var(--text);
+}
+
+.title-typing .typing-cursor {
+  display: inline-block;
+  width: 3px;
+  height: .78em;
+  margin-left: 6px;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+  animation: titleTypingCursor .7s steps(1) infinite;
+}
+
+.title-typing.done .typing-cursor {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes titleTypingCursor {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
