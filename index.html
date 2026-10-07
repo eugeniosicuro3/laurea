@@ -157,7 +157,9 @@
                   e nuovi problemi da risolvere. Qualche bug proverà sicuramente a mettersi in mezzo, ma ormai ho
                   imparato a fare debugging
                   anche della vita — o almeno a riavviare quando serve.</p>
-                <div class="final-code" id="finalCode"></div>
+                <div class="final-code" id="finalCode">
+                  <span class="typing-text"></span><span class="typing-cursor" aria-hidden="true"></span>
+                </div>
               </div>
             </section>
     </section>
@@ -193,31 +195,45 @@
     obs.observe(thanksGrid);
   }
 
-  const finalCode = document.getElementById('finalCode');
-  const fullText = '🚀 next_step = "build something amazing";';
+  const finalCode = document.getElementById("finalCode");
+  const typingText = finalCode?.querySelector(".typing-text");
 
-  if (finalCode) {
-    let i = 0;
+  if (finalCode && typingText) {
+    const fullText = '🚀 next_step = "build something amazing";';
+    let index = 0;
+    let started = false;
 
-    const type = () => {
-      if (i++ < fullText.length) {
-        finalCode.setAttribute('data-text', fullText.slice(0, i));
-        setTimeout(type, 35);
-      } else {
-        finalCode.classList.add('done');
-      }
-    };
+    function startTyping() {
+      if (started) return;
 
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          type();
-          obs.unobserve(entry.target);
+      started = true;
+
+      function writeNextCharacter() {
+        if (index < fullText.length) {
+          typingText.textContent += fullText.charAt(index);
+          index++;
+          setTimeout(writeNextCharacter, 45);
+        } else {
+          finalCode.classList.add("done");
         }
-      });
-    }, { threshold: 0.2 });
+      }
 
-    obs.observe(finalCode);
+      writeNextCharacter();
+    }
+
+    const typingObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          startTyping();
+          typingObserver.disconnect();
+        }
+      },
+      {
+        threshold: 0.25
+      }
+    );
+
+    typingObserver.observe(finalCode);
   }
   </script>
 </body>

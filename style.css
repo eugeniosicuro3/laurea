@@ -1089,81 +1089,55 @@ footer {
 
 /* --- Effetto digitazione su .final-code --- */
 
+/* Effetto digitazione reale */
 #finalCode {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   max-width: 100%;
   margin-top: 28px;
   padding: 14px 16px;
   border: 1px solid rgba(136, 255, 176, .35);
   border-radius: 12px;
-  background: linear-gradient(135deg,
-      rgba(136, 255, 176, .1),
-      rgba(112, 229, 255, .05));
+  background: linear-gradient(
+    135deg,
+    rgba(136, 255, 176, .1),
+    rgba(112, 229, 255, .05)
+  );
   color: var(--green);
   font: 12px monospace;
   box-shadow: 0 0 25px rgba(136, 255, 176, .1);
+  white-space: pre-wrap;
   overflow-wrap: anywhere;
-
-  /* Nascondiamo il testo reale, mostriamo solo quello “digitato” */
-  color: transparent !important;
-  border-right: 2px solid var(--green);
-  white-space: pre;
-  overflow: hidden;
-  min-width: 0;
+  text-align: left;
 }
 
-/* Pseudo-elemento che mostra il testo man mano che viene “digitato” */
-/* --- Effetto digitazione su #finalCode --- */
-
-#finalCode {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  max-width: 100%;
-  margin-top: 28px;
-  padding: 14px 16px;
-  border: 1px solid rgba(136, 255, 176, .35);
-  border-radius: 12px;
-  background: linear-gradient(135deg,
-      rgba(136, 255, 176, .1),
-      rgba(112, 229, 255, .05));
+#finalCode .typing-text {
   color: var(--green);
-  font: 12px monospace;
-  box-shadow: 0 0 25px rgba(136, 255, 176, .1);
-  overflow-wrap: anywhere;
-
-  /* Nascondiamo il testo, lo mostriamo via pseudo-elemento */
-  color: transparent !important;
-  border-right: 2px solid var(--green);
-  white-space: pre;
-  overflow: hidden;
-  min-width: 0;
 }
 
-/* Testo “digitato” */
-#finalCode::after {
-  content: attr(data-text);
-  color: var(--green);
-  position: absolute;
-  inset: 0;
-  padding: 14px 16px;
-  overflow: hidden;
-  border-right: 2px solid var(--green);
-  animation: blinkCaret .8s step-end infinite;
-  white-space: pre;
+#finalCode .typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 4px;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: typingCursor .7s steps(1) infinite;
 }
 
-/* Quando il typing è finito, togliamo il caret */
-#finalCode.done::after {
-  border-right-color: transparent;
+#finalCode.done .typing-cursor {
   animation: none;
+  opacity: .35;
 }
 
-@keyframes blinkCaret {
-  0%, 100% { border-right-color: var(--green); }
-  50%      { border-right-color: transparent; }
+@keyframes typingCursor {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
 }
