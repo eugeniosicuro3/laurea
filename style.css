@@ -412,36 +412,30 @@ pre {
   color: var(--muted);
   font: 13px "SFMono-Regular", Consolas, monospace;
   text-align: center;
-  border: 1px solid rgba(112, 229, 255, .14);
-  border-radius: 24px;
-  background: rgba(8, 15, 32, .65);
-  box-shadow: 0 0 45px rgba(112, 229, 255, .08);
-  overflow: hidden;
+
+  /* Rimuove completamente la card */
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+
   order: 3;
   max-width: 100%;
 }
 
-.loader-status:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg,
-      rgba(112, 229, 255, .08),
-      rgba(157, 122, 255, .08));
-  pointer-events: none;
-}
 
 .loader {
   position: relative;
-  width: 110px;
-  height: 110px;
-  border: 9px solid rgba(112, 229, 255, .13);
+  width: 84px;
+  height: 84px;
+  border: 7px solid rgba(112, 229, 255, .13);
   border-top-color: var(--cyan);
   border-right-color: var(--pink);
   border-bottom-color: var(--purple);
   border-radius: 50%;
   animation: spin .8s linear infinite;
-  box-shadow: 0 0 35px rgba(112, 229, 255, .3);
+  box-shadow: 0 0 28px rgba(112, 229, 255, .3);
   z-index: 1;
 }
 
@@ -458,7 +452,7 @@ pre {
   display: grid;
   place-items: center;
   color: var(--green);
-  font-size: 65px;
+  font-size: 50px;
   font-weight: bold;
 }
 
