@@ -1153,19 +1153,19 @@ footer {
   }
 }
 
-/* --- Ringraziamenti: ogni card si anima quando entra nel viewport --- */
+/* --- Ringraziamenti: reveal singolo e fail-safe --- */
 
-/*
- * Evita che lo spostamento temporaneo verso il basso
- * faccia comparire una scrollbar verticale per un istante.
- */
-.thanks-grid {
-  overflow: clip;
-  padding-bottom: 22px;
+/* Le card restano sempre visibili se JavaScript non parte */
+.thanks-card {
+  opacity: 1;
+  transform: none;
 }
 
-/* Stato iniziale di ciascuna card */
-.thanks-card.reveal-card {
+/*
+ * La classe .reveal-ready viene aggiunta da JavaScript
+ * soltanto alle card che saranno osservate.
+ */
+.thanks-card.reveal-ready {
   opacity: 0;
   transform: translateY(26px) scale(.98);
   transition:
@@ -1174,15 +1174,21 @@ footer {
   will-change: opacity, transform;
 }
 
-/* Stato visibile: attivato dal JavaScript su ogni singola card */
-.thanks-card.reveal-card.is-visible {
+/* La singola card entra in scena */
+.thanks-card.reveal-ready.is-visible {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
-/* Hover solo per dispositivi con un vero mouse */
+/* Niente comparsa momentanea della scrollbar verticale */
+.thanks-grid {
+  overflow: hidden;
+  padding-bottom: 22px;
+}
+
+/* Hover soltanto su desktop con mouse */
 @media (hover: hover) and (pointer: fine) {
-  .thanks-card.reveal-card.is-visible:hover {
+  .thanks-card.reveal-ready.is-visible:hover {
     transform: translateY(-7px) scale(1.01);
     border-color: rgba(112, 229, 255, .65);
     box-shadow:
