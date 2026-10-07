@@ -157,7 +157,7 @@
                   e nuovi problemi da risolvere. Qualche bug proverà sicuramente a mettersi in mezzo, ma ormai ho
                   imparato a fare debugging
                   anche della vita — o almeno a riavviare quando serve.</p>
-                <div class="final-code">🚀 next_step = <span class="pink">"build something amazing"</span>;</div>
+                <div class="final-code" id="finalCode" data-text='🚀 next_step = "build something amazing";'></div>
               </div>
             </section>
     </section>
@@ -175,19 +175,50 @@
     function setup() { width = canvas.width = innerWidth; height = canvas.height = innerHeight; columns = Math.floor(width / 17); drops = Array(columns).fill(1) }
     function draw() { ctx.fillStyle = "rgba(7,10,20,.09)"; ctx.fillRect(0, 0, width, height); ctx.fillStyle = "#70e5ff"; ctx.font = "12px monospace"; drops.forEach((y, i) => { ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * 17, y * 17); if (y * 17 > height && Math.random() > .975) drops[i] = 0; drops[i]++ }); if (!reduced) requestAnimationFrame(draw) }
     addEventListener("resize", setup); setup(); draw();
-    // Animazione card ringraziamenti quando entrano nel viewport
+   // --- Animazione card ringraziamenti allo scroll (ripetibile) ---
   const thanksGrid = document.getElementById('thanksGrid');
   if (thanksGrid) {
     const obs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          // Quando entra nel viewport: aggiungi la classe
           thanksGrid.classList.add('in-view');
-          obs.unobserve(entry.target);
+        } else {
+          // Quando esce dal viewport: togli la classe, così la prossima volta ri-anima
+          thanksGrid.classList.remove('in-view');
         }
       });
     }, { threshold: 0.15 });
 
     obs.observe(thanksGrid);
+  }
+
+   // --- Effetto digitazione su #finalCode ---
+  const finalCode = document.getElementById('finalCode');
+  if (finalCode && finalCode.dataset.text) {
+    const fullText = finalCode.dataset.text;
+    let i = 0;
+
+    const type = () => {
+      if (i++ < fullText.length) {
+        finalCode.setAttribute('data-text', fullText.slice(0, i));
+        requestAnimationFrame(type);
+      } else {
+        finalCode.classList.add('done');
+      }
+    };
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Avvia il typing quando l'elemento entra nel viewport
+          type();
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    obs.observe(finalCode);
   }
   </script>
 </body>
